@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Daishihmr.github.com by daishihmr</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Daishihmr.github.com</h1>
+        <h2></h2>
+        <a href="https://github.com/daishihmr" class="button"><small>Follow me on</small>GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <hr><p>layout: default</p>
+
+<h2>title: テスト</h2>
+
+<h1>テスト</h1>
+
+<ul>
+<li>1</li>
+<li>2</li>
+<li>3</li>
+</ul><ol>
+<li>a</li>
+<li>b</li>
+<li>c</li>
+</ol><p>index.md</p>
+
+<p>index.html</p>
+
+<p>[index]</p>
+
+<p>[index.html]</p>
+
+<p><a href="index.html">index</a></p>
+
+<p>あいうえお</p>
+
+<pre><code>enchant();
+
+var game;
+
+$(function() {
+    game = new Game(320, 320);
+    game.preload("/assets/images/ajax-loader2.gif");
+    game.onload = function() {
+        var scene = new Scene3D();
+        scene.backgroundColor = "#004488";
+
+        var camera = new Camera3D();
+        camera.y = 0;
+        camera.z = 6;
+        scene.setCamera(camera);
+
+        var obj = new Sprite3D();
+        obj.addEventListener("enterframe", function(e) {
+            if (game.input.up) {
+                camera.z += -0.1;
+            }
+            if (game.input.down) {
+                camera.z += 0.1;
+            }
+            if (game.input.left) {
+                this.rotationApply(new Quat(0, 1, 0, 0.1));
+            }
+            if (game.input.right) {
+                this.rotationApply(new Quat(0, 1, 0, -0.1));
+            }
+        });
+        scene.addChild(obj);
+
+        obj.entity = new Sprite3D();
+        obj.entityName = null;
+        obj.addChild(obj.entity);
+        var startPos = null;
+        obj.addEventListener("touchstart", function(e) {
+            startPos = {
+                x : e.x,
+                y : e.y
+            };
+            this.lastPos = {
+                x : this.x,
+                y : this.y,
+                z : this.z
+            };
+        });
+        obj.addEventListener("touchmove", function(e) {
+            this.x = this.lastPos.x + (e.x - startPos.x) / 160;
+            this.y = this.lastPos.y - (e.y - startPos.y) / 160;
+        });
+        obj.addEventListener("touchend", function(e) {
+            startPos = null;
+        });
+
+        var loading = new Sprite(100, 100);
+        loading.x = (game.width - loading.width) / 2;
+        loading.y = (game.height - loading.height) / 2;
+        loading.image = game.assets["/assets/images/ajax-loader2.gif"];
+        loading.visible = false;
+        game.loading = loading;
+        game.rootScene.addChild(loading);
+
+        Label.prototype.button = function() {
+            this._style.width = "100px";
+            this._style.padding = "2px";
+            this._style.backgroundColor = "rgba(128,255,128,0.3)";
+            this._style.fontWeight = "bold";
+            this._style.textAlign = "center";
+            this._style.cursor = "pointer";
+            this._style.fontSize = "9pt";
+        };
+
+        var poses;
+        $(".file-node").click(function(e) {
+            if (poses &amp;&amp; poses.parentNode) {
+                poses.parentNode.removeChild(poses);
+            }
+            poses = new Group();
+            game.rootScene.addChild(poses);
+
+            var data = $(this).attr("data-value");
+            $("#selected-file").val(data);
+            game.loading.visible = true;
+            $("#submit-area").hide();
+            game.load("/data/" + data + ".js", function() {
+                game.loading.visible = false;
+
+                obj.removeChild(obj.entity);
+                {
+                    obj.entity = undefined;
+                    game.assets[obj.entityName] = undefined;
+                    obj.entity = game.assets["/data/" + data + ".js"];
+                    scale(obj.entity);
+                    obj.entityName = "/data/" + data + ".js";
+                }
+                obj.addChild(obj.entity);
+
+                $("#submit-area").show();
+
+                if (obj.entity.animate) {
+                    var model = obj.entity;
+                    var poseNames = [];
+                    for ( var pose in model.poses) {
+                        if (model.poses.hasOwnProperty(pose)) {
+                            poseNames.push(pose);
+                        }
+                    }
+
+                    poseNames = poseNames.sort();
+                    console.log(poseNames);
+
+                    var y = 0;
+                    poseNames.forEach(function(pose) {
+                        var label = new Label(pose);
+                        label.button();
+                        label.poseName = pose;
+                        label.x = 0;
+                        label.y = y;
+                        label.ontouchend = function() {
+                            model.animate(this.poseName, 20);
+                        };
+                        poses.addChild(label);
+
+                        y += 24;
+                    });
+                    model.animate("_initialPose", 1);
+                }
+            });
+        });
+    };
+    game.start();
+});
+</code></pre>
+
+<p>あいうえお</p>
+
+<div class="highlight"><pre><span class="nx">enchant</span><span class="p">();</span>
+
+<span class="kd">var</span> <span class="nx">game</span><span class="p">;</span>
+
+<span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">game</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Game</span><span class="p">(</span><span class="mi">320</span><span class="p">,</span> <span class="mi">320</span><span class="p">);</span>
+    <span class="nx">game</span><span class="p">.</span><span class="nx">preload</span><span class="p">(</span><span class="s2">"/assets/images/ajax-loader2.gif"</span><span class="p">);</span>
+    <span class="nx">game</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">scene</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Scene3D</span><span class="p">();</span>
+        <span class="nx">scene</span><span class="p">.</span><span class="nx">backgroundColor</span> <span class="o">=</span> <span class="s2">"#004488"</span><span class="p">;</span>
+
+        <span class="kd">var</span> <span class="nx">camera</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Camera3D</span><span class="p">();</span>
+        <span class="nx">camera</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="nx">camera</span><span class="p">.</span><span class="nx">z</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
+        <span class="nx">scene</span><span class="p">.</span><span class="nx">setCamera</span><span class="p">(</span><span class="nx">camera</span><span class="p">);</span>
+
+        <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Sprite3D</span><span class="p">();</span>
+        <span class="nx">obj</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">"enterframe"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">game</span><span class="p">.</span><span class="nx">input</span><span class="p">.</span><span class="nx">up</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">camera</span><span class="p">.</span><span class="nx">z</span> <span class="o">+=</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">game</span><span class="p">.</span><span class="nx">input</span><span class="p">.</span><span class="nx">down</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">camera</span><span class="p">.</span><span class="nx">z</span> <span class="o">+=</span> <span class="mf">0.1</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">game</span><span class="p">.</span><span class="nx">input</span><span class="p">.</span><span class="nx">left</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">rotationApply</span><span class="p">(</span><span class="k">new</span> <span class="nx">Quat</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">));</span>
+            <span class="p">}</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">game</span><span class="p">.</span><span class="nx">input</span><span class="p">.</span><span class="nx">right</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">rotationApply</span><span class="p">(</span><span class="k">new</span> <span class="nx">Quat</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">));</span>
+            <span class="p">}</span>
+        <span class="p">});</span>
+        <span class="nx">scene</span><span class="p">.</span><span class="nx">addChild</span><span class="p">(</span><span class="nx">obj</span><span class="p">);</span>
+
+        <span class="nx">obj</span><span class="p">.</span><span class="nx">entity</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Sprite3D</span><span class="p">();</span>
+        <span class="nx">obj</span><span class="p">.</span><span class="nx">entityName</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+        <span class="nx">obj</span><span class="p">.</span><span class="nx">addChild</span><span class="p">(</span><span class="nx">obj</span><span class="p">.</span><span class="nx">entity</span><span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">startPos</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+        <span class="nx">obj</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">"touchstart"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">startPos</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="nx">x</span> <span class="o">:</span> <span class="nx">e</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span>
+                <span class="nx">y</span> <span class="o">:</span> <span class="nx">e</span><span class="p">.</span><span class="nx">y</span>
+            <span class="p">};</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">lastPos</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="nx">x</span> <span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span>
+                <span class="nx">y</span> <span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">y</span><span class="p">,</span>
+                <span class="nx">z</span> <span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">z</span>
+            <span class="p">};</span>
+        <span class="p">});</span>
+        <span class="nx">obj</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">"touchmove"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">lastPos</span><span class="p">.</span><span class="nx">x</span> <span class="o">+</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">x</span> <span class="o">-</span> <span class="nx">startPos</span><span class="p">.</span><span class="nx">x</span><span class="p">)</span> <span class="o">/</span> <span class="mi">160</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">lastPos</span><span class="p">.</span><span class="nx">y</span> <span class="o">-</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">y</span> <span class="o">-</span> <span class="nx">startPos</span><span class="p">.</span><span class="nx">y</span><span class="p">)</span> <span class="o">/</span> <span class="mi">160</span><span class="p">;</span>
+        <span class="p">});</span>
+        <span class="nx">obj</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">"touchend"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">startPos</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+        <span class="p">});</span>
+
+        <span class="kd">var</span> <span class="nx">loading</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Sprite</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+        <span class="nx">loading</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="p">(</span><span class="nx">game</span><span class="p">.</span><span class="nx">width</span> <span class="o">-</span> <span class="nx">loading</span><span class="p">.</span><span class="nx">width</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+        <span class="nx">loading</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="p">(</span><span class="nx">game</span><span class="p">.</span><span class="nx">height</span> <span class="o">-</span> <span class="nx">loading</span><span class="p">.</span><span class="nx">height</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+        <span class="nx">loading</span><span class="p">.</span><span class="nx">image</span> <span class="o">=</span> <span class="nx">game</span><span class="p">.</span><span class="nx">assets</span><span class="p">[</span><span class="s2">"/assets/images/ajax-loader2.gif"</span><span class="p">];</span>
+        <span class="nx">loading</span><span class="p">.</span><span class="nx">visible</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+        <span class="nx">game</span><span class="p">.</span><span class="nx">loading</span> <span class="o">=</span> <span class="nx">loading</span><span class="p">;</span>
+        <span class="nx">game</span><span class="p">.</span><span class="nx">rootScene</span><span class="p">.</span><span class="nx">addChild</span><span class="p">(</span><span class="nx">loading</span><span class="p">);</span>
+
+        <span class="nx">Label</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">button</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">_style</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="s2">"100px"</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">_style</span><span class="p">.</span><span class="nx">padding</span> <span class="o">=</span> <span class="s2">"2px"</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">_style</span><span class="p">.</span><span class="nx">backgroundColor</span> <span class="o">=</span> <span class="s2">"rgba(128,255,128,0.3)"</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">_style</span><span class="p">.</span><span class="nx">fontWeight</span> <span class="o">=</span> <span class="s2">"bold"</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">_style</span><span class="p">.</span><span class="nx">textAlign</span> <span class="o">=</span> <span class="s2">"center"</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">_style</span><span class="p">.</span><span class="nx">cursor</span> <span class="o">=</span> <span class="s2">"pointer"</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">_style</span><span class="p">.</span><span class="nx">fontSize</span> <span class="o">=</span> <span class="s2">"9pt"</span><span class="p">;</span>
+        <span class="p">};</span>
+
+        <span class="kd">var</span> <span class="nx">poses</span><span class="p">;</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s2">".file-node"</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">poses</span> <span class="o">&amp;&amp;</span> <span class="nx">poses</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">poses</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="nx">poses</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="nx">poses</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Group</span><span class="p">();</span>
+            <span class="nx">game</span><span class="p">.</span><span class="nx">rootScene</span><span class="p">.</span><span class="nx">addChild</span><span class="p">(</span><span class="nx">poses</span><span class="p">);</span>
+
+            <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">"data-value"</span><span class="p">);</span>
+            <span class="nx">$</span><span class="p">(</span><span class="s2">"#selected-file"</span><span class="p">).</span><span class="nx">val</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+            <span class="nx">game</span><span class="p">.</span><span class="nx">loading</span><span class="p">.</span><span class="nx">visible</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+            <span class="nx">$</span><span class="p">(</span><span class="s2">"#submit-area"</span><span class="p">).</span><span class="nx">hide</span><span class="p">();</span>
+            <span class="nx">game</span><span class="p">.</span><span class="nx">load</span><span class="p">(</span><span class="s2">"/data/"</span> <span class="o">+</span> <span class="nx">data</span> <span class="o">+</span> <span class="s2">".js"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="nx">game</span><span class="p">.</span><span class="nx">loading</span><span class="p">.</span><span class="nx">visible</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+
+                <span class="nx">obj</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="nx">obj</span><span class="p">.</span><span class="nx">entity</span><span class="p">);</span>
+                <span class="p">{</span>
+                    <span class="nx">obj</span><span class="p">.</span><span class="nx">entity</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span>
+                    <span class="nx">game</span><span class="p">.</span><span class="nx">assets</span><span class="p">[</span><span class="nx">obj</span><span class="p">.</span><span class="nx">entityName</span><span class="p">]</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span>
+                    <span class="nx">obj</span><span class="p">.</span><span class="nx">entity</span> <span class="o">=</span> <span class="nx">game</span><span class="p">.</span><span class="nx">assets</span><span class="p">[</span><span class="s2">"/data/"</span> <span class="o">+</span> <span class="nx">data</span> <span class="o">+</span> <span class="s2">".js"</span><span class="p">];</span>
+                    <span class="nx">scale</span><span class="p">(</span><span class="nx">obj</span><span class="p">.</span><span class="nx">entity</span><span class="p">);</span>
+                    <span class="nx">obj</span><span class="p">.</span><span class="nx">entityName</span> <span class="o">=</span> <span class="s2">"/data/"</span> <span class="o">+</span> <span class="nx">data</span> <span class="o">+</span> <span class="s2">".js"</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="nx">obj</span><span class="p">.</span><span class="nx">addChild</span><span class="p">(</span><span class="nx">obj</span><span class="p">.</span><span class="nx">entity</span><span class="p">);</span>
+
+                <span class="nx">$</span><span class="p">(</span><span class="s2">"#submit-area"</span><span class="p">).</span><span class="nx">show</span><span class="p">();</span>
+
+                <span class="k">if</span> <span class="p">(</span><span class="nx">obj</span><span class="p">.</span><span class="nx">entity</span><span class="p">.</span><span class="nx">animate</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="kd">var</span> <span class="nx">model</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">entity</span><span class="p">;</span>
+                    <span class="kd">var</span> <span class="nx">poseNames</span> <span class="o">=</span> <span class="p">[];</span>
+                    <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">pose</span> <span class="k">in</span> <span class="nx">model</span><span class="p">.</span><span class="nx">poses</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="k">if</span> <span class="p">(</span><span class="nx">model</span><span class="p">.</span><span class="nx">poses</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">pose</span><span class="p">))</span> <span class="p">{</span>
+                            <span class="nx">poseNames</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">pose</span><span class="p">);</span>
+                        <span class="p">}</span>
+                    <span class="p">}</span>
+
+                    <span class="nx">poseNames</span> <span class="o">=</span> <span class="nx">poseNames</span><span class="p">.</span><span class="nx">sort</span><span class="p">();</span>
+                    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">poseNames</span><span class="p">);</span>
+
+                    <span class="kd">var</span> <span class="nx">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+                    <span class="nx">poseNames</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">pose</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="kd">var</span> <span class="nx">label</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Label</span><span class="p">(</span><span class="nx">pose</span><span class="p">);</span>
+                        <span class="nx">label</span><span class="p">.</span><span class="nx">button</span><span class="p">();</span>
+                        <span class="nx">label</span><span class="p">.</span><span class="nx">poseName</span> <span class="o">=</span> <span class="nx">pose</span><span class="p">;</span>
+                        <span class="nx">label</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+                        <span class="nx">label</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="nx">y</span><span class="p">;</span>
+                        <span class="nx">label</span><span class="p">.</span><span class="nx">ontouchend</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                            <span class="nx">model</span><span class="p">.</span><span class="nx">animate</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">poseName</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span>
+                        <span class="p">};</span>
+                        <span class="nx">poses</span><span class="p">.</span><span class="nx">addChild</span><span class="p">(</span><span class="nx">label</span><span class="p">);</span>
+
+                        <span class="nx">y</span> <span class="o">+=</span> <span class="mi">24</span><span class="p">;</span>
+                    <span class="p">});</span>
+                    <span class="nx">model</span><span class="p">.</span><span class="nx">animate</span><span class="p">(</span><span class="s2">"_initialPose"</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">});</span>
+        <span class="p">});</span>
+    <span class="p">};</span>
+    <span class="nx">game</span><span class="p">.</span><span class="nx">start</span><span class="p">();</span>
+<span class="p">});</span>
+</pre></div>
+        </section>
+
+        <aside id="sidebar">
+
+
+          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
